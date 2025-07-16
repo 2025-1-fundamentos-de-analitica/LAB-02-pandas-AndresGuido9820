@@ -5,6 +5,8 @@ datos requeridos se encuentran en los archivos `tbl0.tsv`, `tbl1.tsv` y
 librerias de pandas para resolver las preguntas.
 """
 
+import pandas as pd
+
 
 def pregunta_05():
     """
@@ -20,3 +22,11 @@ def pregunta_05():
     E    9
     Name: c2, dtype: int64
     """
+    # Importar archivo de datos
+    data_frame = pd.read_csv("files/input/tbl0.tsv", delimiter="\t")
+    
+    # Encontrar valor máximo por grupo
+    max_valores = data_frame.groupby(by='c1')['c2'].transform('max')
+    result = data_frame.groupby('c1')['c2'].max()
+    
+    return result

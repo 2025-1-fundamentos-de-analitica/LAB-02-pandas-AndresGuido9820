@@ -5,6 +5,8 @@ datos requeridos se encuentran en los archivos `tbl0.tsv`, `tbl1.tsv` y
 librerias de pandas para resolver las preguntas.
 """
 
+import pandas as pd
+
 
 def pregunta_12():
     """
@@ -22,3 +24,20 @@ def pregunta_12():
     38   38                    eee:0,fff:9,iii:2
     39   39                    ggg:3,hhh:8,jjj:5
     """
+    # Leer archivo tbl2.tsv
+    data_frame = pd.read_csv("files/input/tbl2.tsv", delimiter="\t")
+    
+    # Combinar columnas c5a y c5b usando format
+    data_frame['combined_c5'] = data_frame.apply(
+        lambda row: f"{row['c5a']}:{row['c5b']}", axis=1
+    )
+    
+    # Agrupar por c0 y unir valores ordenados
+    result = data_frame.groupby('c0')['combined_c5'].agg(
+        lambda x: ','.join(sorted(x.tolist()))
+    ).reset_index()
+    
+    # Cambiar nombre de columna
+    result.columns = ['c0', 'c5']
+    
+    return result

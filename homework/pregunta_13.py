@@ -5,6 +5,8 @@ datos requeridos se encuentran en los archivos `tbl0.tsv`, `tbl1.tsv` y
 librerias de pandas para resolver las preguntas.
 """
 
+import pandas as pd
+
 
 def pregunta_13():
     """
@@ -20,3 +22,14 @@ def pregunta_13():
     E    275
     Name: c5b, dtype: int64
     """
+    # Cargar las dos tablas necesarias
+    tabla_0 = pd.read_csv("files/input/tbl0.tsv", delimiter="\t")
+    tabla_2 = pd.read_csv("files/input/tbl2.tsv", delimiter="\t")
+    
+    # Realizar join interno usando c0 como clave
+    tablas_unidas = tabla_0.merge(tabla_2, on='c0', how='inner')
+    
+    # Sumar c5b agrupado por c1
+    suma_agrupada = tablas_unidas.groupby('c1')['c5b'].agg('sum')
+    
+    return suma_agrupada

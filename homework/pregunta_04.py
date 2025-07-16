@@ -5,6 +5,8 @@ datos requeridos se encuentran en los archivos `tbl0.tsv`, `tbl1.tsv` y
 librerias de pandas para resolver las preguntas.
 """
 
+import pandas as pd
+
 
 def pregunta_04():
     """
@@ -20,3 +22,10 @@ def pregunta_04():
     E    4.785714
     Name: c2, dtype: float64
     """
+    # Leer datos del archivo TSV
+    tabla_datos = pd.read_csv("files/input/tbl0.tsv", sep="\t")
+    
+    # Calcular promedio usando groupby y agg
+    resultado = tabla_datos.groupby('c1').agg({'c2': 'mean'})['c2']
+    
+    return resultado

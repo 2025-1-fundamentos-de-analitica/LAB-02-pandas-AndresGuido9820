@@ -5,6 +5,8 @@ datos requeridos se encuentran en los archivos `tbl0.tsv`, `tbl1.tsv` y
 librerias de pandas para resolver las preguntas.
 """
 
+import pandas as pd
+
 
 def pregunta_03():
     """
@@ -21,3 +23,10 @@ def pregunta_03():
     Name: count, dtype: int64
 
     """
+    # Cargar dataset
+    dataset = pd.read_csv("files/input/tbl0.tsv", delimiter="\t")
+    
+    # Agrupar por columna c1 y contar ocurrencias
+    conteo_letras = dataset.groupby('c1').size()
+    
+    return conteo_letras

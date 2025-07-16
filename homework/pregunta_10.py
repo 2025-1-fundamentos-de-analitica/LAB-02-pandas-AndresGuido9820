@@ -5,6 +5,8 @@ datos requeridos se encuentran en los archivos `tbl0.tsv`, `tbl1.tsv` y
 librerias de pandas para resolver las preguntas.
 """
 
+import pandas as pd
+
 
 def pregunta_10():
     """
@@ -20,3 +22,14 @@ def pregunta_10():
     D                   1:2:3:5:5:7
     E   1:1:2:3:3:4:5:5:5:6:7:8:8:9
     """
+    # Cargar el dataset
+    dataset = pd.read_csv("files/input/tbl0.tsv", delimiter="\t")
+    
+    # Agrupar por c1 y crear string concatenado con ':'
+    def concatenar_valores(serie):
+        valores_ordenados = sorted(serie.tolist())
+        return ':'.join(str(val) for val in valores_ordenados)
+    
+    resultado = dataset.groupby('c1')['c2'].agg(concatenar_valores).to_frame()
+    
+    return resultado
